@@ -1,213 +1,72 @@
-# 🎵 MP3 Tag Reader & Editor in C
+# MP3 Tag Reader & Editor in C
 
-<p align="center">
-  <strong>A Command-Line Application for Reading and Editing MP3 Metadata</strong>
-</p>
+A command-line C project for reading and editing supported ID3 metadata in MP3 files. The project focuses on binary file handling, frame parsing, structures, and command-line arguments.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Language-C-blue?style=for-the-badge&logo=c" alt="C">
-  <img src="https://img.shields.io/badge/Compiler-GCC-orange?style=for-the-badge&logo=gnu" alt="GCC">
-  <img src="https://img.shields.io/badge/Metadata-ID3v2-green?style=for-the-badge" alt="ID3v2">
-  <img src="https://img.shields.io/badge/Status-In%20Development-yellow?style=for-the-badge" alt="In Development">
-</p>
+## Features
 
----
+- Read supported ID3 metadata frames
+- Parse selected ID3 frames
+- View metadata from the command line
+- Edit supported fields when the required frame already exists
+- Modular C source files
 
-## 📌 About the Project
+## Technology
 
-**MP3 Tag Reader & Editor** is a command-line project developed using C to read and edit ID3 metadata in MP3 audio files.
+C · GCC · ID3 metadata · Binary file I/O
 
-The project focuses on binary file handling, ID3 frame parsing, structures, modular programming, and command-line argument processing.
+## Build
 
-It is being developed as a hands-on project to strengthen C programming skills and understand how audio metadata is stored and managed.
-
-## ✨ Features
-
-- 📖 **Read Metadata** — Scan supported ID3 frames in an audio file.
-- 🔍 **Parse ID3 Frames** — Identify frames such as `TXXX` and `TSSE`.
-- 🖥️ **Command-Line Interface** — Run operations through terminal commands.
-- 🧩 **Modular Codebase** — Separate files for metadata parsing, viewing, and editing.
-- 🛠️ **GCC Compilation** — Compile with warning flags to help identify programming issues.
-- 🧪 **Metadata Testing** — Test metadata reading and editing using sample audio files.
-
-## ⚠️ Current Limitations
-
-This project is still under development.
-
-- Missing metadata frames, such as `TIT2` (song title), cannot currently be added by the C editor.
-- If a supported frame is absent, the viewer may display a default value such as `No Song Name`.
-- Editing depends on the metadata frames already present in the file.
-- Compatibility with different ID3 versions and frame formats is still being improved.
-
-**Example current limitation:**
-
-```text
-Frame found: TXXX, size: 18
-Frame found: TXXX, size: 17
-Frame found: TXXX, size: 28
-Frame found: TSSE, size: 15
-
-Tag not found. Adding missing frames is not supported yet.
-```
-
-This output indicates that the expected metadata frame was not found and the current editor cannot create it yet.
-
-## 🛠️ Technologies Used
-
-| Technology | Purpose |
-|---|---|
-| C | Core application development |
-| GCC | C compiler |
-| ID3v2 | Audio metadata format |
-| Standard C libraries | File handling and data processing |
-| Git | Version control |
-| GitHub | Source code hosting |
-
-## 📂 Project Structure
-
-```text
-Mp3_Tag_Reader/
-│
-├── main.c          # Main program and command-line handling
-├── mp3.c           # File validation and ID3 parsing
-├── mp3.h           # Structures and function declarations
-├── edit.c          # Metadata editing functions
-├── view.c          # Metadata viewing functions
-├── README.md       # Project documentation
-└── songs/          # Sample audio files for testing
-```
-
-## ⚙️ Installation and Compilation
-
-### 1. Clone the repository
-
-Replace `YOUR-USERNAME` with your GitHub username.
+Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/Mp3_Tag_Reader.git
+git clone https://github.com/kirubanandhan016/Mp3_Tag_Reader.git
 cd Mp3_Tag_Reader
 ```
 
-### 2. Compile the project
-
-Using GCC:
+Compile with GCC:
 
 ```bash
 gcc -Wall -Wextra main.c mp3.c edit.c view.c -o mp3player
 ```
 
-On Windows, GCC generates `mp3player.exe` when compiled with that output name:
+On Windows, compile to `mp3player.exe` if desired:
 
 ```powershell
 gcc -Wall -Wextra main.c mp3.c edit.c view.c -o mp3player.exe
 ```
 
-## 🚀 Usage
+## Usage examples
 
-The following commands demonstrate the current command-line interface. Editing a field requires the corresponding metadata frame to exist.
+View metadata:
 
-### View MP3 metadata
-
-Windows PowerShell:
-
+**Windows PowerShell**
 ```powershell
 .\mp3player.exe -v ".\songs\song.mp3"
 ```
 
-Linux:
-
+**macOS/Linux**
 ```bash
 ./mp3player -v songs/song.mp3
 ```
 
-### Edit the song title
+Edit examples depend on the CLI options supported by the current source. For example, the documented title-edit command is:
 
 ```powershell
 .\mp3player.exe -e -T "Song Title" ".\songs\song.mp3"
 ```
 
-### Edit the artist
+## Known limitations
 
-```powershell
-.\mp3player.exe -e -A "Artist Name" ".\songs\song.mp3"
-```
+- The editor cannot currently add every missing metadata frame (for example, a missing `TIT2` frame).
+- Behavior can vary with the frames already present in the file.
+- Compatibility with different ID3 versions and frame encodings requires further testing.
 
-### Edit the album
+Test with copies of audio files, not your only copy of an original. Confirm that sample audio files can legally be redistributed before committing them.
 
-```powershell
-.\mp3player.exe -e -L "Album Name" ".\songs\song.mp3"
-```
+## Project scope
 
-### Edit the year
+This C project demonstrates file-format handling and is secondary to the Python backend projects in my portfolio.
 
-```powershell
-.\mp3player.exe -e -Y "2026" ".\songs\song.mp3"
-```
+## Author
 
-### Edit the genre
-
-```powershell
-.\mp3player.exe -e -G "Melody" ".\songs\song.mp3"
-```
-
-### Edit the comment
-
-```powershell
-.\mp3player.exe -e -C "My music collection" ".\songs\song.mp3"
-```
-
-> **Important:** These edit commands may report that a tag was not found if the corresponding frame does not exist. Adding missing frames is not yet implemented.
-
-## 🏷️ Metadata Frame Reference
-
-| Command | ID3 Frame | Metadata |
-|---|---|---|
-| `-T` | `TIT2` | Song title |
-| `-A` | `TPE1` | Artist name |
-| `-L` | `TALB` | Album name |
-| `-Y` | `TDRC` / `TYER` | Recording date or year |
-| `-G` | `TCON` | Genre |
-| `-C` | `COMM` | Comment |
-
-The application recognizes these frame identifiers in its metadata-reading and editing logic. Actual editing support depends on the implementation and the frames available in the file.
-
-## 📚 Concepts Practiced
-
-- C programming fundamentals
-- File pointers and binary file operations
-- Structures and header files
-- Functions and modular programming
-- Command-line argument parsing
-- ID3v2 metadata and frame headers
-- Input validation and error handling
-- Debugging with GCC compiler warnings
-- Git and GitHub version control
-
-## 🔮 Future Improvements
-
-- [ ] Add missing ID3 frames automatically.
-- [ ] Update the ID3 header size when new frames are inserted.
-- [ ] Improve ID3v2.3 and ID3v2.4 compatibility.
-- [ ] Preserve existing metadata when editing a single field.
-- [ ] Add stronger error handling for malformed files.
-- [ ] Add automated tests for metadata reading and editing.
-- [ ] Improve command-line messages and input validation.
-
-## 👨‍💻 Author
-
-**Kirubanandhan V**
-
-Aspiring Python Backend Developer | C Programmer | SQL Learner
-
-- GitHub: [@kirubanandhan016](https://github.com/kirubanandhan016)
-- LinkedIn: [Connect with me](https://www.linkedin.com/)
-
----
-
-## ⭐ Acknowledgements
-
-Built as a practical learning project to explore C programming, binary file handling, and audio metadata.
-
-If you find this project useful, consider giving the repository a star!
-
-**Made with C and a passion for learning.** 🚀
+**Kirubanandhan V** · [GitHub](https://github.com/kirubanandhan016)

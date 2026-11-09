@@ -26,13 +26,13 @@ cd Mp3_Tag_Reader
 Compile with GCC:
 
 ```bash
-gcc -Wall -Wextra main.c mp3.c edit.c view.c -o mp3player
+gcc -Wall -Wextra main.c edit.c view.c -o mp3tag
 ```
 
-On Windows, compile to `mp3player.exe` if desired:
+On Windows, compile to `mp3tag.exe` if desired:
 
 ```powershell
-gcc -Wall -Wextra main.c mp3.c edit.c view.c -o mp3player.exe
+gcc -Wall -Wextra main.c mp3.c edit.c view.c -o mp3tag.exe
 ```
 
 ## Usage examples
@@ -41,18 +41,18 @@ View metadata:
 
 **Windows PowerShell**
 ```powershell
-.\mp3player.exe -v ".\songs\song.mp3"
+.\mp3tag.exe -v ".\songs\song.mp3"
 ```
 
 **macOS/Linux**
 ```bash
-./mp3player -v songs/song.mp3
+./mp3tag -v songs/song.mp3
 ```
 
 Edit examples depend on the CLI options supported by the current source. For example, the documented title-edit command is:
 
 ```powershell
-.\mp3player.exe -e -T "Song Title" ".\songs\song.mp3"
+.\mp3tag.exe -e -T "Song Title" ".\songs\song.mp3"
 ```
 
 ## Known limitations

@@ -1,0 +1,15 @@
+name: C Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile MP3 tag reader
+        run: gcc -std=c11 -Wall -Wextra -Wpedantic main.c edit.c view.c -o mp3tag

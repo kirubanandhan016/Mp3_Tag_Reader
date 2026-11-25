@@ -32,7 +32,7 @@ gcc -Wall -Wextra main.c edit.c view.c -o mp3tag
 On Windows, compile to `mp3tag.exe` if desired:
 
 ```powershell
-gcc -Wall -Wextra main.c mp3.c edit.c view.c -o mp3tag.exe
+gcc -Wall -Wextra main.c edit.c view.c -o mp3tag.exe
 ```
 
 ## Usage examples
@@ -70,3 +70,26 @@ This C project demonstrates file-format handling and is secondary to the Python 
 ## Author
 
 **Kirubanandhan V** · [GitHub](https://github.com/kirubanandhan016)
+
+
+## Internal processing flow
+
+```mermaid
+flowchart TD
+    CLI[Command-line arguments] --> Mode{View or edit?}
+    Mode -->|View| Read[Open MP3 in binary mode]
+    Mode -->|Edit| Edit[Locate supported metadata frame]
+    Read --> Parse[Parse ID3 header and frames]
+    Edit --> Parse
+    Parse --> Output[Display metadata or write updated frame]
+```
+
+## Build verification
+
+The Windows and macOS/Linux examples compile the tracked source files `main.c`, `edit.c`, and `view.c`. Build locally with warnings enabled:
+
+```bash
+gcc -Wall -Wextra -Wpedantic main.c edit.c view.c -o mp3tag
+```
+
+The repository also contains generated executable and audio artifacts. Prefer building executables locally and use small, legally redistributable fixtures for testing rather than committing generated binaries or large personal audio files.
